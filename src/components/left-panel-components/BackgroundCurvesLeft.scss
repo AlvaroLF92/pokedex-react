@@ -1,0 +1,28 @@
+div#bg_curve1_left {
+  width: 25rem;
+  height: 5rem;
+  background-color: #8b0000;
+  z-index: 1;
+
+  border-top-left-radius: 1.875rem;
+  -webkit-border-top-left-radius: 1.875rem;
+  -moz-border-top-left-radius: 1.875rem;
+  -o-border-top-left-radius: 1.875rem;
+}
+
+div#bg_curve2_left {
+  width: 25rem;
+  height: 26.25rem;
+  background-color: #c00d0d;
+  z-index: 1;
+
+  box-shadow: -0.625rem 0.563rem #5e0000;
+  -webkit-box-shadow: -0.625rem 0.563rem #5e0000;
+  -moz-box-shadow: -0.625rem 0.563rem #5e0000;
+  -o-box-shadow: -0.625rem 0.563rem #5e0000;
+
+  border-bottom-left-radius: 1.875rem;
+  -webkit-border-bottom-left-radius: 1.875rem;
+  -moz-border-bottom-left-radius: 1.875rem;
+  -o-border-bottom-left-radius: 1.875rem;
+}

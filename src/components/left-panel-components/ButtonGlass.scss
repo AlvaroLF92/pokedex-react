@@ -1,0 +1,180 @@
+div#curve1_left {
+  width: 12.563rem;
+  height: 85px;
+  background-color: #8b0000;
+  float: left;
+  padding: 15px 0 0 15px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  box-shadow: -10px 9px #5e0000;
+  -webkit-box-shadow: -10px 9px #5e0000;
+  -moz-box-shadow: -10px 9px #5e0000;
+  -o-box-shadow: -10px 9px #5e0000;
+
+  border-bottom-right-radius: 85px 60px;
+  -webkit-border-bottom-right-radius: 85px 60px;
+  -moz-border-bottom-right-radius: 85px 60px;
+  -o-border-bottom-right-radius: 85px 60px;
+
+  border-top-left-radius: 30px;
+  -webkit-border-top-left-radius: 30px;
+  -moz-border-top-left-radius: 30px;
+  -o-border-top-left-radius: 30px;
+}
+
+div#curve2_left {
+  width: 216px;
+  height: 451px;
+  background-color: #c00d0d;
+  float: right;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  border-top-left-radius: 85px 60px;
+  -webkit-border-top-left-radius: 85px 60px;
+  -moz-border-top-left-radius: 85px 60px;
+  -o-border-top-left-radius: 85px 60px;
+}
+
+div#buttonGlass {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  border: 5px solid #fff;
+  float: left;
+
+  box-shadow: 0 0 10px #490000;
+  -webkit-box-shadow: 0 0 10px #490000;
+  -moz-box-shadow: 0 0 10px #490000;
+  -o-box-shadow: 0 0 10px #490000;
+
+  background: radial-gradient(#05fbfb, #29abe3);
+  background: -webkit-radial-gradient(#05fbfb, #29abe3);
+  background: -moz-radial-gradient(#05fbfb, #29abe3);
+  background: -o-radial-gradient(#05fbfb, #29abe3);
+
+  border-radius: 35px;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  -o-border-radius: 35px;
+}
+
+div#reflect {
+  width: 30px;
+  height: 18px;
+  margin: 3px 0 0 15px;
+  background: #fff;
+  opacity: 0.6;
+
+  border-radius: 15px 9px;
+  -webkit-border-radius: 15px 9px;
+  -moz-border-radius: 15px 9px;
+  -o-border-radius: 15px 9px;
+}
+
+div#miniButtonGlass1 {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  float: left;
+
+  box-shadow: 0 0 10px #490000;
+  -webkit-box-shadow: 0 0 10px #490000;
+  -moz-box-shadow: 0 0 10px #490000;
+  -o-box-shadow: 0 0 10px #490000;
+
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+
+  background: radial-gradient(#fb7b7b, #fb0505);
+  background: -webkit-radial-gradient(#fb7b7b, #fb0505);
+  background: -moz-radial-gradient(#fb7b7b, #fb0505);
+  background: -o-radial-gradient(#fb7b7b, #fb0505);
+}
+
+div#miniButtonGlass2 {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  float: left;
+
+  box-shadow: 0 0 10px #490000;
+  -webkit-box-shadow: 0 0 10px #490000;
+  -moz-box-shadow: 0 0 10px #490000;
+  -o-box-shadow: 0 0 10px #490000;
+
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+
+  background: radial-gradient(#fbfb9b, #fbfb05);
+  background: -webkit-radial-gradient(#fbfb9b, #fbfb05);
+  background: -moz-radial-gradient(#fbfb9b, #fbfb05);
+  background: -o-radial-gradient(#fbfb9b, #fbfb05);
+}
+
+div#miniButtonGlass3 {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  float: left;
+
+  box-shadow: 0 0 10px #490000;
+  -webkit-box-shadow: 0 0 10px #490000;
+  -moz-box-shadow: 0 0 10px #490000;
+  -o-box-shadow: 0 0 10px #490000;
+
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+
+  background: radial-gradient(#b0fb7b, #50fb05);
+  background: -webkit-radial-gradient(#b0fb7b, #50fb05);
+  background: -moz-radial-gradient(#b0fb7b, #50fb05);
+  background: -o-radial-gradient(#b0fb7b, #50fb05);
+}
+
+div#junction {
+  width: 60px;
+  height: 451px;
+  float: right;
+
+  background: linear-gradient(left, #8b0000 0%, #c00d0d 50%, #8b0000 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #8b0000 0%,
+    #c00d0d 50%,
+    #8b0000 100%
+  );
+  background: -moz-linear-gradient(left, #8b0000 0%, #c00d0d 50%, #8b0000 100%);
+  background: -o-linear-gradient(left, #8b0000 0%, #c00d0d 50%, #8b0000 100%);
+}
+
+div#junction1 {
+  height: 40px;
+  background-color: #5e0000;
+  opacity: 0.3;
+  margin-top: 50px;
+  margin-bottom: 262px;
+
+  border-top: 2px solid #330000;
+  border-bottom: 2px solid #330000;
+}
+
+div#junction2 {
+  height: 40px;
+  background-color: #5e0000;
+  opacity: 0.3;
+
+  border-top: 2px solid #330000;
+  border-bottom: 2px solid #330000;
+}
