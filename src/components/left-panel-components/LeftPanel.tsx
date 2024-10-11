@@ -1,9 +1,9 @@
 import React from 'react';
-import BackgroundCurvesLeft from './BackgroundCurvesLeft';
-import ButtonGlass from './ButtonGlass';
-import Screen from './Screen';
-import Cross from './Cross';
+import ButtonGlass from './control-components/ButtonGlass';
+import Screen from './control-components/Screen';
+import Cross from './control-components/Cross';
 import { Pokemon } from '../../utils/pokeApiService';
+import "./LeftPanel.scss"
 
 interface LeftPanelProps {
   pokemon: Pokemon;
@@ -14,10 +14,11 @@ interface LeftPanelProps {
  const LeftPanel: React.FC<LeftPanelProps> = ({pokemon, isShiny , toggleShiny}) => {
   return (
     <div id="left">
-      <BackgroundCurvesLeft />
       <ButtonGlass />
       <Screen pokemon={pokemon} isShiny={isShiny} toggleShiny={toggleShiny}/>
       <Cross />
+      <div id="bg_curve1_left"></div>
+      <div id="bg_curve2_left"></div>
     </div>
   );
 };

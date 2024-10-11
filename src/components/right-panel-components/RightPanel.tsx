@@ -1,9 +1,8 @@
 import React from 'react';
 import Stats from './Stats';
 import SearchInput from './SearchInput';
-import BackgroundCurvesRight from './BackgroundCurvesRight';
-import Logo from './Logo';
 import { Pokemon } from '../../utils/pokeApiService';
+import "./RightPanel.scss"
 
 interface RightPanelProps {
   pokemon: Pokemon;
@@ -13,10 +12,12 @@ interface RightPanelProps {
 const RightPanel: React.FC<RightPanelProps> = ({ pokemon, onPokemonChange}) => {
   return (
     <div id="right">
-      <Logo/>
       <Stats pokemon={pokemon}/>
       <SearchInput onPokemonChange={onPokemonChange} />
-      <BackgroundCurvesRight />
+      <div id="bg_curve1_right"></div>
+      <div id="bg_curve2_right"></div>
+      <div id="curve1_right"></div>
+      <div id="curve2_right"></div>
     </div>
   );
 };

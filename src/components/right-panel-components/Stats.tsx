@@ -6,23 +6,29 @@ interface StatsProps {
 }
 
 const Stats: React.FC<StatsProps> = ({ pokemon }) => {
-  const pokemonTypes = pokemon.types.map((type) => type.type.name);
+  const capitalizeFirstLetter = (name: string) => {
+    if (!name) return "";
+    const lowerCaseName = name.toLowerCase();
+    const firstLetter = lowerCaseName.charAt(0).toUpperCase();
+    const restOfName = lowerCaseName.slice(1);
+
+    return firstLetter + restOfName;
+  };
+  const pokemonTypes = pokemon.types.map((type, i) => {
+    if (i == 0 && pokemon.types.length > 1) {
+      return capitalizeFirstLetter(type.type.name) + " / ";
+    } else {
+      return capitalizeFirstLetter(type.type.name);
+    }
+  });
 
   return (
     <div id="stats">
-      <strong>Name:</strong> {pokemon.name}
-      <br />
-      <strong>Type:</strong>
-      {pokemonTypes}
-      <br />
-      <strong>Height:</strong> 2'072''
-      <br />
-      <strong>Weight:</strong> 43.2 lbs.
-      <br />
-      <br />
-      <strong>The duck Pokemon</strong>
-      <br />
-      Uses mysterious powers to perform various attacks.
+      <div className="nameAndType">
+        <strong>Name: </strong>
+        <span>{capitalizeFirstLetter(pokemon.name)}</span>
+        <strong> Type:</strong> <span>{pokemonTypes} </span>
+      </div>
     </div>
   );
 };
