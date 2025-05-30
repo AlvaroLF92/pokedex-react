@@ -18,7 +18,10 @@ export interface Pokemon {
       name: string;
     };
   }>;
+  height: number; 
+  weight: number; 
 }
+
 
 export const fetchPokemon = async (pokemonName: string): Promise<Pokemon> => {
   const response = await fetch(
@@ -38,5 +41,7 @@ export const fetchPokemon = async (pokemonName: string): Promise<Pokemon> => {
     },
     stats: data.stats,
     types: data.types,
+    height: data.height, 
+    weight: data.weight, 
   };
 };

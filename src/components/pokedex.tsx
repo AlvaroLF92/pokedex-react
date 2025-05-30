@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import LeftPanel from "./left-panel-components/LeftPanel";
-import RightPanel from "./right-panel-components/RightPanel";
 import { fetchPokemon, Pokemon } from "../utils/pokeApiService";
+import PokedexUI from "./PokedexUI/PokedexUI";
 
 const Pokedex: React.FC = () => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
@@ -12,6 +11,8 @@ const Pokedex: React.FC = () => {
       try {
         const data = await fetchPokemon("mewtwo");
         setPokemon(data);
+        console.log(data);
+        
       } catch (error) {
         console.error("Error fetching Pokémon:", error);
       }
@@ -36,11 +37,7 @@ const Pokedex: React.FC = () => {
     <div id="pokedex">
       {pokemon ? (
         <>
-          <LeftPanel pokemon={pokemon}  isShiny={isShiny} toggleShiny={toggleShiny}/>
-          <RightPanel 
-          pokemon={pokemon}
-          onPokemonChange={handlePokemonChange}
-          />
+          <PokedexUI toggleShiny={toggleShiny} pokemon={pokemon} isShiny={isShiny} onPokemonChange={handlePokemonChange}  />
         </>
       ) : (
         <p>Loading...</p>
