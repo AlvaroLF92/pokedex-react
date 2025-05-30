@@ -21,3 +21,13 @@ div#stats {
   -moz-box-shadow: 0 0 20px #003300 inset;
   -o-box-shadow: 0 0 20px #003300 inset;
 }
+
+div#stats ul {
+  list-style: none;     
+  padding: 0;            
+  margin: 0;             
+}
+
+div#stats li {
+  margin-bottom: 4px;    
+}
