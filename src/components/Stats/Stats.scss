@@ -31,3 +31,27 @@ div#stats ul {
 div#stats li {
   margin-bottom: 4px;    
 }
+
+div#stats .basic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+div#stats ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  row-gap: 1rem;
+  column-gap: 10px;
+}
+
+div#stats li {
+  font-size: 13px;
+
+}

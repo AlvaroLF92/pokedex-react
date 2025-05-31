@@ -1,33 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { fetchPokemon, Pokemon } from "../utils/pokeApiService";
 import PokedexUI from "./PokedexUI/PokedexUI";
 
+interface BasicPokemon {
+  name: string;
+  url: string;
+}
+
+const normalizeName = (name: string) => name.toLowerCase().replace(/\s/g, "-");
+
 const Pokedex: React.FC = () => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [selectedPokemonName, setSelectedPokemonName] = useState<string | null>(null);
   const [isShiny, setIsShiny] = useState<boolean>(false);
+  const [pokemonList, setPokemonList] = useState<string[]>([]);
+  const [pokemonCache, setPokemonCache] = useState<Record<string, Pokemon>>({});
 
   useEffect(() => {
-    const getPokemon = async () => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=251")
+      .then((res) => res.json())
+      .then((data) => {
+        const names = data.results.map((p: BasicPokemon) => normalizeName(p.name));
+        setPokemonList(names);
+      })
+      .catch(console.error);
+  }, []);
+
+  const handlePokemonChange = useCallback(
+    async (newPokemonName: string) => {
+      const normalized = normalizeName(newPokemonName);
+      setSelectedPokemonName(normalized); // actualizar nombre seleccionado
+
+      const cached = pokemonCache[normalized];
+      if (cached) {
+        setPokemon(cached);
+        setIsShiny(false);
+        return;
+      }
+
       try {
-        const data = await fetchPokemon("mewtwo");
+        const data = await fetchPokemon(normalized);
         setPokemon(data);
-        console.log(data);
-        
+        setIsShiny(false);
+        setPokemonCache((prevCache) => ({
+          ...prevCache,
+          [normalized]: data,
+        }));
       } catch (error) {
         console.error("Error fetching Pokémon:", error);
       }
-    };
-    getPokemon();
-  }, []);
-  const handlePokemonChange = async (newPokemonName: string) => {
-    try {
-      const data = await fetchPokemon(newPokemonName);
-      setPokemon(data);
-      setIsShiny(false);
-    } catch (error) {
-      console.error("Error fetching Pokémon:", error);
+    },
+    [pokemonCache]
+  );
+
+  useEffect(() => {
+    if (pokemonList.length > 0 && !selectedPokemonName) {
+      handlePokemonChange(pokemonList[0]);
     }
-  };
+  }, [pokemonList, selectedPokemonName, handlePokemonChange]);
 
   const toggleShiny = () => {
     setIsShiny((prev) => !prev);
@@ -35,10 +65,15 @@ const Pokedex: React.FC = () => {
 
   return (
     <div id="pokedex">
-      {pokemon ? (
-        <>
-          <PokedexUI toggleShiny={toggleShiny} pokemon={pokemon} isShiny={isShiny} onPokemonChange={handlePokemonChange}  />
-        </>
+      {pokemon && selectedPokemonName && pokemonList.length > 0 ? (
+        <PokedexUI
+          toggleShiny={toggleShiny}
+          pokemon={pokemon}
+          isShiny={isShiny}
+          onPokemonChange={handlePokemonChange}
+          pokemonList={pokemonList}
+          selectedPokemonName={selectedPokemonName}
+        />
       ) : (
         <p>Loading...</p>
       )}
@@ -47,3 +82,4 @@ const Pokedex: React.FC = () => {
 };
 
 export default Pokedex;
+

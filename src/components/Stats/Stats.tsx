@@ -4,33 +4,39 @@ import { Pokemon } from "../../utils/pokeApiService";
 
 interface StatsProps {
   pokemon: Pokemon;
-  screenIndex: number;
+  page: "basic" | "stats";
 }
 
-const Stats: React.FC<StatsProps> = ({ pokemon, screenIndex }) => {
+const Stats: React.FC<StatsProps> = ({ pokemon, page }) => {
   const types = pokemon.types.map((t) => t.type.name).join(", ");
-  const heightInFeet = (pokemon.height / 3.048).toFixed(2); 
-  const weightInLbs = (pokemon.weight / 4.53592).toFixed(2); 
+  const heightInFeet = (pokemon.height / 3.048).toFixed(2);
+  const weightInLbs = (pokemon.weight / 4.53592).toFixed(2);
 
   return (
     <div id="stats">
-      {screenIndex === 0 ? (
-        <>
-          <strong>Name:</strong> {pokemon.name}
-          <br />
-          <strong>Type:</strong> {types}
-          <br />
-          <strong>Height:</strong> {heightInFeet} ft
-          <br />
-          <strong>Weight:</strong> {weightInLbs} lbs
-        </>
+      {page === "basic" ? (
+        <div className="basic-info">
+          <div>
+            <strong>Name:</strong> {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          </div>
+          <div>
+            <strong>Type:</strong> {types}
+          </div>
+          <div>
+            <strong>Height:</strong> {heightInFeet} ft
+          </div>
+          <div>
+            <strong>Weight:</strong> {weightInLbs} lbs
+          </div>
+        </div>
       ) : (
         <>
           <strong>Stats:</strong>
           <ul>
             {pokemon.stats.map((statObj) => (
               <li key={statObj.stat.name}>
-                <strong>{statObj.stat.name.replace("-", " ")}:</strong> {statObj.base_stat}
+                <strong>{statObj.stat.name.replace("-", " ")}:</strong>{" "}
+                {statObj.base_stat}
               </li>
             ))}
           </ul>

@@ -10,33 +10,71 @@ interface PokedexUIProps {
   isShiny: boolean;
   toggleShiny: () => void;
   onPokemonChange: (pokemonName: string) => void;
+  pokemonList: string[];
+  selectedPokemonName: string;
 }
 
 const PokedexUI: React.FC<PokedexUIProps> = ({
   pokemon,
   isShiny,
   toggleShiny,
-  onPokemonChange
+  onPokemonChange,
+  pokemonList,
+  selectedPokemonName,
 }) => {
-  const [screenIndex, setScreenIndex] = useState(0);
+  const [page, setPage] = useState<"basic" | "stats">("basic");
+  const [showFrontSprite, setShowFrontSprite] = useState(true);
 
-  const toggleStatsScreen = (direction: "left" | "right") => {
-    setScreenIndex((prev) => {
-      if (direction === "right") return (prev + 1) % 2;
-      return (prev - 1 + 2) % 2;
-    });
+  const goToNext = () => {
+    if (!pokemonList.length) return;
+    const index = pokemonList.indexOf(selectedPokemonName);
+    if (index === -1) {
+      console.warn("Pokémon actual no encontrado en la lista:", selectedPokemonName);
+      return;
+    }
+    const nextIndex = (index + 1) % pokemonList.length;
+    onPokemonChange(pokemonList[nextIndex]);
+    setShowFrontSprite(true);
+  };
+
+  const goToPrevious = () => {
+    if (!pokemonList.length) return;
+    const index = pokemonList.indexOf(selectedPokemonName);
+    if (index === -1) {
+      console.warn("Pokémon actual no encontrado en la lista:", selectedPokemonName);
+      return;
+    }
+    const prevIndex = (index - 1 + pokemonList.length) % pokemonList.length;
+    onPokemonChange(pokemonList[prevIndex]);
+    setShowFrontSprite(true);
+  };
+
+  const togglePage = () => {
+    setPage((prev) => (prev === "basic" ? "stats" : "basic"));
+  };
+
+  const toggleSprite = () => {
+    setShowFrontSprite((prev) => !prev);
   };
 
   return (
     <div className="Pokedex-container">
       <div id="left">
-        {/* BackgroundCurvesLeft */}
         <div id="bg_curve1_left"></div>
         <div id="bg_curve2_left"></div>
 
-        {/* ButtonGlass */}
         <div id="curve1_left">
-          <div id="buttonGlass">
+          <div
+            id="buttonGlass"
+            onClick={toggleSprite}
+            role="button"
+            tabIndex={0}
+            aria-label="Toggle front/back sprite"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") toggleSprite();
+            }}
+          >
+            <div id="barbutton1"></div>
             <div id="reflect"></div>
           </div>
           <div id="miniButtonGlass1"></div>
@@ -51,22 +89,64 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
           </div>
         </div>
 
-        <Screen pokemon={pokemon} isShiny={isShiny} toggleShiny={toggleShiny} screenIndex={0} />
+        <Screen
+          pokemon={pokemon}
+          isShiny={isShiny}
+          toggleShiny={toggleShiny}
+          toggleSprite={toggleSprite}
+          showFrontSprite={showFrontSprite}
+        />
 
         <div id="cross">
-          <div id="leftcross" onClick={() => toggleStatsScreen("left")}>
+          <div
+            id="leftcross"
+            onClick={togglePage}
+            role="button"
+            tabIndex={0}
+            aria-label="Toggle info page"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") togglePage();
+            }}
+          >
             <div id="leftT"></div>
           </div>
-          <div id="topcross">
+          <div
+            id="topcross"
+            onClick={goToNext}
+            role="button"
+            tabIndex={0}
+            aria-label="Next Pokémon"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") goToNext();
+            }}
+          >
             <div id="upT"></div>
           </div>
-          <div id="rightcross" onClick={() => toggleStatsScreen("right")}>
+          <div
+            id="rightcross"
+            onClick={togglePage}
+            role="button"
+            tabIndex={0}
+            aria-label="Toggle info page"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") togglePage();
+            }}
+          >
             <div id="rightT"></div>
           </div>
           <div id="midcross">
             <div id="midCircle"></div>
           </div>
-          <div id="botcross">
+          <div
+            id="botcross"
+            onClick={goToPrevious}
+            role="button"
+            tabIndex={0}
+            aria-label="Previous Pokémon"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") goToPrevious();
+            }}
+          >
             <div id="downT"></div>
           </div>
         </div>
@@ -79,12 +159,8 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
         <div className="logo-2">
           <img src="./src/assets/logo-3.svg" alt="Logo 1" />
         </div>
-
-        {/* 👇 Pasamos el screenIndex */}
-        <Stats pokemon={pokemon} screenIndex={screenIndex} />
-
+        <Stats pokemon={pokemon} page={page} />
         <SearchInput onPokemonChange={onPokemonChange} />
-
         <div id="bg_curve1_right"></div>
         <div id="bg_curve2_right"></div>
         <div id="curve1_right"></div>

@@ -5,11 +5,13 @@ interface SearchInputProps {
   onPokemonChange: (pokemonName: string) => void;
 }
 
+const normalizeName = (name: string) => name.toLowerCase().replace(/\s/g, "-");
+
 const SearchInput: React.FC<SearchInputProps> = ({ onPokemonChange }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSearch = () => {
-    const normalized = inputValue.trim().toLowerCase();
+    const normalized = normalizeName(inputValue.trim());
     if (normalized) {
       onPokemonChange(normalized);
     }
