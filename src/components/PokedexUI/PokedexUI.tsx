@@ -12,6 +12,12 @@ interface PokedexUIProps {
   onPokemonChange: (pokemonName: string) => void;
   pokemonList: string[];
   selectedPokemonName: string;
+  page: "basic" | "stats" | "description";
+  togglePage: (direction?: "next" | "prev") => void;
+  showFrontSprite: boolean;
+  toggleSprite: () => void;
+  isAnimated: boolean;
+  toggleAnimation: () => void;
 }
 
 const PokedexUI: React.FC<PokedexUIProps> = ({
@@ -21,10 +27,13 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
   onPokemonChange,
   pokemonList,
   selectedPokemonName,
+  page,
+  togglePage,
+  showFrontSprite,
+  toggleSprite,
+  isAnimated,
+  toggleAnimation,
 }) => {
-  const [page, setPage] = useState<"basic" | "stats" | "description">("basic");
-  const pages: Array<"basic" | "stats" | "description"> = ["basic", "stats", "description"];
-  const [showFrontSprite, setShowFrontSprite] = useState(true);
   const [isReading, setIsReading] = useState(false);
 
   const triggerReadingAnimation = () => {
@@ -33,6 +42,9 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
   };
 
   const goToNext = () => {
+    if (!showFrontSprite) {
+      toggleSprite();
+    }
     if (!pokemonList.length) return;
     const index = pokemonList.indexOf(selectedPokemonName);
     if (index === -1) {
@@ -45,10 +57,12 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
     triggerReadingAnimation();
     const nextIndex = (index + 1) % pokemonList.length;
     onPokemonChange(pokemonList[nextIndex]);
-    setShowFrontSprite(true);
   };
 
   const goToPrevious = () => {
+    if (!showFrontSprite) {
+      toggleSprite();
+    }
     if (!pokemonList.length) return;
     const index = pokemonList.indexOf(selectedPokemonName);
     if (index === -1) {
@@ -61,20 +75,6 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
     triggerReadingAnimation();
     const prevIndex = (index - 1 + pokemonList.length) % pokemonList.length;
     onPokemonChange(pokemonList[prevIndex]);
-    setShowFrontSprite(true);
-  };
-
- const togglePage = () => {
-  setPage((prev) => {
-    const currentIndex = pages.indexOf(prev);
-    const nextIndex = (currentIndex + 1) % pages.length;
-    return pages[nextIndex];
-  });
-};
-
-
-  const toggleSprite = () => {
-    setShowFrontSprite((prev) => !prev);
   };
 
   return (
@@ -93,9 +93,18 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
             <div id="barbutton1"></div>
             <div id="reflect"></div>
           </div>
-          <div id="miniButtonGlass1"></div>
-          <div id="miniButtonGlass2"></div>
-          <div id="miniButtonGlass3"></div>
+          <div
+            id="miniButtonGlass1"
+            className={page === "basic" ? "active" : ""}
+          />
+          <div
+            id="miniButtonGlass2"
+            className={page === "stats" ? "active" : ""}
+          />
+          <div
+            id="miniButtonGlass3"
+            className={page === "description" ? "active" : ""}
+          />
         </div>
 
         <div id="curve2_left">
@@ -111,12 +120,14 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
           toggleShiny={toggleShiny}
           toggleSprite={toggleSprite}
           showFrontSprite={showFrontSprite}
+          isAnimated={isAnimated} // 👈 nuevo
+          toggleAnimation={toggleAnimation}
         />
 
         <div id="cross">
           <div
             id="leftcross"
-            onClick={togglePage}
+            onClick={() => togglePage("prev")}
             role="button"
             tabIndex={0}
             aria-label="Toggle info page"
@@ -140,7 +151,7 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
           </div>
           <div
             id="rightcross"
-            onClick={togglePage}
+            onClick={() => togglePage("next")}
             role="button"
             tabIndex={0}
             aria-label="Toggle info page"
@@ -169,12 +180,6 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
       </div>
 
       <div id="right">
-        <div className="logo">
-          <img src="./src/assets/logo-2.svg" alt="Logo 2" />
-        </div>
-        <div className="logo-2">
-          <img src="./src/assets/logo-3.svg" alt="Logo 1" />
-        </div>
         <Stats pokemon={pokemon} page={page} />
         <SearchInput onPokemonChange={onPokemonChange} />
         <div id="bg_curve1_right"></div>

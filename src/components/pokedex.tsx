@@ -11,16 +11,25 @@ const normalizeName = (name: string) => name.toLowerCase().replace(/\s/g, "-");
 
 const Pokedex: React.FC = () => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [selectedPokemonName, setSelectedPokemonName] = useState<string | null>(null);
+  const [selectedPokemonName, setSelectedPokemonName] = useState<string | null>(
+    null
+  );
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [pokemonList, setPokemonList] = useState<string[]>([]);
   const [pokemonCache, setPokemonCache] = useState<Record<string, Pokemon>>({});
+  const [isAnimated, setIsAnimated] = useState<boolean>(false);
+  const toggleAnimation = () => setIsAnimated((prev) => !prev);
+  // NUEVOS ESTADOS movidos aquí:
+  const [page, setPage] = useState<"basic" | "stats" | "description">("basic");
+  const [showFrontSprite, setShowFrontSprite] = useState(true);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=251")
       .then((res) => res.json())
       .then((data) => {
-        const names = data.results.map((p: BasicPokemon) => normalizeName(p.name));
+        const names = data.results.map((p: BasicPokemon) =>
+          normalizeName(p.name)
+        );
         setPokemonList(names);
       })
       .catch(console.error);
@@ -29,7 +38,7 @@ const Pokedex: React.FC = () => {
   const handlePokemonChange = useCallback(
     async (newPokemonName: string) => {
       const normalized = normalizeName(newPokemonName);
-      setSelectedPokemonName(normalized); // actualizar nombre seleccionado
+      setSelectedPokemonName(normalized);
 
       const cached = pokemonCache[normalized];
       if (cached) {
@@ -63,16 +72,48 @@ const Pokedex: React.FC = () => {
     setIsShiny((prev) => !prev);
   };
 
+  // Función para cambiar página en el padre
+  const pages: Array<"basic" | "stats" | "description"> = [
+    "basic",
+    "stats",
+    "description",
+  ];
+
+  const togglePage = (direction: "next" | "prev" = "next") => {
+    const currentIndex = pages.indexOf(page);
+    if (currentIndex === -1) return;
+
+    let newIndex;
+    if (direction === "next") {
+      newIndex = (currentIndex + 1) % pages.length;
+    } else {
+      newIndex = (currentIndex - 1 + pages.length) % pages.length;
+    }
+
+    setPage(pages[newIndex]);
+  };
+
+  // Función para cambiar sprite en el padre
+  const toggleSprite = () => {
+    setShowFrontSprite((prev) => !prev);
+  };
+
   return (
     <div id="pokedex">
       {pokemon && selectedPokemonName && pokemonList.length > 0 ? (
         <PokedexUI
-          toggleShiny={toggleShiny}
           pokemon={pokemon}
           isShiny={isShiny}
+          toggleShiny={toggleShiny}
           onPokemonChange={handlePokemonChange}
           pokemonList={pokemonList}
           selectedPokemonName={selectedPokemonName}
+          page={page}
+          togglePage={togglePage}
+          showFrontSprite={showFrontSprite}
+          toggleSprite={toggleSprite}
+          isAnimated={isAnimated} // 👈 nuevo
+          toggleAnimation={toggleAnimation}
         />
       ) : (
         <p>Loading...</p>
@@ -82,4 +123,3 @@ const Pokedex: React.FC = () => {
 };
 
 export default Pokedex;
-

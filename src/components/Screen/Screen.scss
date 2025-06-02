@@ -35,16 +35,28 @@ div#picture {
   border: 3px solid #494949;
   clear: both;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -o-border-radius: 15px;
+  overflow: hidden;
 }
 
 div#picture img {
   display: block;
   margin: 0 auto;
+  width: auto;
 }
+
+div#picture img.static-sprite {
+  height: 10rem; 
+}
+
+div#picture img.animated-sprite {
+  height: 5.5rem; 
+}
+
 
 div#topPicture {
   margin: 6px auto;
@@ -157,6 +169,12 @@ div#barbutton1 {
   -webkit-box-shadow: -1px 2px #004200;
   -moz-box-shadow: -1px 2px #004200;
   -o-box-shadow: -1px 2px #004200;
+}
+
+#barbutton1.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 div#barbutton2 {

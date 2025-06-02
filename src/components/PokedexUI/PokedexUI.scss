@@ -341,6 +341,14 @@ div#miniButtonGlass3 {
   background: -o-radial-gradient(#b0fb7b, #50fb05);
 }
 
+div#miniButtonGlass1.active,
+div#miniButtonGlass2.active,
+div#miniButtonGlass3.active {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px 2px white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 div#junction {
   width: 60px;
   height: 451px;

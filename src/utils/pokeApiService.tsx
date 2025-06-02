@@ -1,4 +1,5 @@
 export interface Pokemon {
+  id: number;
   name: string;
   sprites: {
     front_default: string;
@@ -55,6 +56,7 @@ export const fetchPokemon = async (pokemonName: string): Promise<Pokemon> => {
   }
   const data = await response.json();
   return {
+    id: data.id, 
     name: data.name,
     sprites: {
       front_default: data.sprites.front_default,
@@ -68,6 +70,7 @@ export const fetchPokemon = async (pokemonName: string): Promise<Pokemon> => {
     weight: data.weight, 
   };
 };
+
 
 export const fetchEvolutionChain = async (
   pokemonName: string
