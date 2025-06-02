@@ -256,6 +256,12 @@ div#buttonGlass {
   -o-border-radius: 35px;
 }
 
+div#buttonGlass.reading {
+  background: radial-gradient(#aaffaa, #55bb55) !important;
+  box-shadow: 0 0 15px #7fff7f !important;
+  border-color: #66bb66 !important;
+}
+
 div#reflect {
   width: 30px;
   height: 18px;

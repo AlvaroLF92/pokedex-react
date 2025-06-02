@@ -22,16 +22,27 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
   pokemonList,
   selectedPokemonName,
 }) => {
-  const [page, setPage] = useState<"basic" | "stats">("basic");
+  const [page, setPage] = useState<"basic" | "stats" | "description">("basic");
+  const pages: Array<"basic" | "stats" | "description"> = ["basic", "stats", "description"];
   const [showFrontSprite, setShowFrontSprite] = useState(true);
+  const [isReading, setIsReading] = useState(false);
+
+  const triggerReadingAnimation = () => {
+    setIsReading(true);
+    setTimeout(() => setIsReading(false), 250);
+  };
 
   const goToNext = () => {
     if (!pokemonList.length) return;
     const index = pokemonList.indexOf(selectedPokemonName);
     if (index === -1) {
-      console.warn("Pokémon actual no encontrado en la lista:", selectedPokemonName);
+      console.warn(
+        "Pokémon actual no encontrado en la lista:",
+        selectedPokemonName
+      );
       return;
     }
+    triggerReadingAnimation();
     const nextIndex = (index + 1) % pokemonList.length;
     onPokemonChange(pokemonList[nextIndex]);
     setShowFrontSprite(true);
@@ -41,17 +52,26 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
     if (!pokemonList.length) return;
     const index = pokemonList.indexOf(selectedPokemonName);
     if (index === -1) {
-      console.warn("Pokémon actual no encontrado en la lista:", selectedPokemonName);
+      console.warn(
+        "Pokémon actual no encontrado en la lista:",
+        selectedPokemonName
+      );
       return;
     }
+    triggerReadingAnimation();
     const prevIndex = (index - 1 + pokemonList.length) % pokemonList.length;
     onPokemonChange(pokemonList[prevIndex]);
     setShowFrontSprite(true);
   };
 
-  const togglePage = () => {
-    setPage((prev) => (prev === "basic" ? "stats" : "basic"));
-  };
+ const togglePage = () => {
+  setPage((prev) => {
+    const currentIndex = pages.indexOf(prev);
+    const nextIndex = (currentIndex + 1) % pages.length;
+    return pages[nextIndex];
+  });
+};
+
 
   const toggleSprite = () => {
     setShowFrontSprite((prev) => !prev);
@@ -66,13 +86,9 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
         <div id="curve1_left">
           <div
             id="buttonGlass"
-            onClick={toggleSprite}
             role="button"
             tabIndex={0}
-            aria-label="Toggle front/back sprite"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") toggleSprite();
-            }}
+            className={isReading ? "reading" : ""}
           >
             <div id="barbutton1"></div>
             <div id="reflect"></div>

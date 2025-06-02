@@ -6,9 +6,8 @@ interface ScreenProps {
   pokemon: Pokemon;
   isShiny: boolean;
   toggleShiny: () => void;
-
-  showFrontSprite: boolean;      // NUEVO
-  toggleSprite: () => void;      // NUEVO
+  showFrontSprite: boolean;      
+  toggleSprite: () => void;      
 }
 
 const Screen: React.FC<ScreenProps> = ({
@@ -72,7 +71,7 @@ const Screen: React.FC<ScreenProps> = ({
         }}
       ></div>
 
-      <div id="barbutton2" onClick={() => console.log("Show back picture")}></div>
+      <div id="barbutton2"></div>
     </div>
   );
 };

@@ -39,7 +39,6 @@ div#stats .basic-info {
   height: 100%;
 }
 
-
 div#stats ul {
   list-style: none;
   padding: 0;
@@ -55,3 +54,30 @@ div#stats li {
   font-size: 13px;
 
 }
+
+.type-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.type-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.description p {
+  padding: 1rem;
+}
+
