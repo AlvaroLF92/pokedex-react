@@ -18,11 +18,23 @@ const Pokedex: React.FC = () => {
   const [pokemonList, setPokemonList] = useState<string[]>([]);
   const [pokemonCache, setPokemonCache] = useState<Record<string, Pokemon>>({});
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
-  const toggleAnimation = () => setIsAnimated((prev) => !prev);
-  // NUEVOS ESTADOS movidos aquí:
   const [page, setPage] = useState<"basic" | "stats" | "description">("basic");
   const [showFrontSprite, setShowFrontSprite] = useState(true);
+  const [isReading, setIsReading] = useState(false);
 
+  const pages: Array<"basic" | "stats" | "description"> = [
+    "basic",
+    "stats",
+    "description",
+  ];
+
+  const triggerReadingAnimation = () => {
+    setIsReading(true);
+    setTimeout(() => setIsReading(false), 250);
+  };
+
+  const toggleAnimation = () => setIsAnimated((prev) => !prev);
+  
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=251")
       .then((res) => res.json())
@@ -72,13 +84,6 @@ const Pokedex: React.FC = () => {
     setIsShiny((prev) => !prev);
   };
 
-  // Función para cambiar página en el padre
-  const pages: Array<"basic" | "stats" | "description"> = [
-    "basic",
-    "stats",
-    "description",
-  ];
-
   const togglePage = (direction: "next" | "prev" = "next") => {
     const currentIndex = pages.indexOf(page);
     if (currentIndex === -1) return;
@@ -93,7 +98,6 @@ const Pokedex: React.FC = () => {
     setPage(pages[newIndex]);
   };
 
-  // Función para cambiar sprite en el padre
   const toggleSprite = () => {
     setShowFrontSprite((prev) => !prev);
   };
@@ -112,8 +116,10 @@ const Pokedex: React.FC = () => {
           togglePage={togglePage}
           showFrontSprite={showFrontSprite}
           toggleSprite={toggleSprite}
-          isAnimated={isAnimated} // 👈 nuevo
+          isAnimated={isAnimated}
           toggleAnimation={toggleAnimation}
+          triggerReadingAnimation={triggerReadingAnimation}
+          isReading={isReading}
         />
       ) : (
         <p>Loading...</p>

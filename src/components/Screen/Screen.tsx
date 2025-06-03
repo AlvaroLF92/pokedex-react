@@ -26,11 +26,10 @@ const Screen: React.FC<ScreenProps> = ({
       const id = pokemon.id;
       const base =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated";
-      // Siempre frontal animado, ignorando showFrontSprite
+
       return isShiny ? `${base}/shiny/${id}.gif` : `${base}/${id}.gif`;
     }
 
-    // Si no está animado, mostrar según showFrontSprite
     return showFrontSprite
       ? isShiny
         ? pokemon.sprites.front_shiny

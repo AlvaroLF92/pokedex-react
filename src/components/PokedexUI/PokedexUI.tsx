@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Screen from "../Screen/Screen";
 import { Pokemon } from "../../utils/pokeApiService";
 import "./PokedexUI.scss";
@@ -18,6 +18,8 @@ interface PokedexUIProps {
   toggleSprite: () => void;
   isAnimated: boolean;
   toggleAnimation: () => void;
+  triggerReadingAnimation: () => void;
+  isReading : boolean;
 }
 
 const PokedexUI: React.FC<PokedexUIProps> = ({
@@ -33,14 +35,10 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
   toggleSprite,
   isAnimated,
   toggleAnimation,
+  triggerReadingAnimation,
+  isReading
 }) => {
-  const [isReading, setIsReading] = useState(false);
-
-  const triggerReadingAnimation = () => {
-    setIsReading(true);
-    setTimeout(() => setIsReading(false), 250);
-  };
-
+  
   const goToNext = () => {
     if (!showFrontSprite) {
       toggleSprite();
@@ -120,7 +118,7 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
           toggleShiny={toggleShiny}
           toggleSprite={toggleSprite}
           showFrontSprite={showFrontSprite}
-          isAnimated={isAnimated} // 👈 nuevo
+          isAnimated={isAnimated}
           toggleAnimation={toggleAnimation}
         />
 

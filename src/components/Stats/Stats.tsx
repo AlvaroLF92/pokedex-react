@@ -1,4 +1,3 @@
-// Stats.tsx
 import React, { useEffect, useState } from "react";
 import "./Stats.scss";
 import { Pokemon, fetchPokemonDescription } from "../../utils/pokeApiService";
