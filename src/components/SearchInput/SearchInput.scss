@@ -64,3 +64,14 @@ div#search-input  {
     background-color: #1f285f;
   }
 }
+
+.search-field:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #999;
+}
+
+.search-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}

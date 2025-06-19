@@ -50,13 +50,12 @@ div#picture img {
 }
 
 div#picture img.static-sprite {
-  height: 10rem; 
+  height: 10rem;
 }
 
 div#picture img.animated-sprite {
-  height: 5.5rem; 
+  height: 5.5rem;
 }
-
 
 div#topPicture {
   margin: 6px auto;
@@ -87,7 +86,7 @@ div#buttonbottomPicture {
   background-color: #c00d0d;
   margin-left: 35px;
   float: left;
-
+  cursor: pointer;
   border-radius: 30px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -126,7 +125,7 @@ div#bigbluebutton {
   height: 50px;
   width: 50px;
   background-color: #000;
-
+  cursor: pointer;
   position: absolute;
   top: 275px;
   left: 10px;
@@ -150,7 +149,7 @@ div#bigbluebutton {
 div#barbutton1 {
   height: 13px;
   width: 50px;
-
+  cursor: pointer;
   position: absolute;
   top: 285px;
   left: 80px;
@@ -171,7 +170,7 @@ div#barbutton1 {
   -o-box-shadow: -1px 2px #004200;
 }
 
-#barbutton1.disabled {
+.disabledScreen {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
@@ -180,7 +179,7 @@ div#barbutton1 {
 div#barbutton2 {
   height: 13px;
   width: 50px;
-
+  cursor: pointer;
   position: absolute;
   top: 285px;
   left: 145px;
@@ -199,4 +198,30 @@ div#barbutton2 {
   -webkit-box-shadow: -1px 2px #7b0000;
   -moz-box-shadow: -1px 2px #7b0000;
   -o-box-shadow: -1px 2px #7b0000;
+
+}
+
+.black-screen {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.power-dot {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.power-line {
+  width: 100%;  /* Extiende toda la anchura */
+  height: 4px;
+  background-color: white;
+}
+
+.black-screen {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }

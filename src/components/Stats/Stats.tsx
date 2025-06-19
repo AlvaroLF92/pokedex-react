@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Stats.scss";
-import { Pokemon, fetchPokemonDescription } from "../../utils/pokeApiService";
+import { fetchPokemonDescription } from "../../utils/pokeApiService";
+import type { Pokemon} from "../../utils/pokeApiService";
 
 interface StatsProps {
   pokemon: Pokemon;
   page: "basic" | "stats" | "description";
+  isPowerOn : boolean
 }
 
 const typeColors: Record<string, string> = {
@@ -53,7 +55,7 @@ const typeTranslations: Record<string, string> = {
   unknown: "Desconocido",
 };
 
-const Stats: React.FC<StatsProps> = ({ pokemon, page }) => {
+const Stats: React.FC<StatsProps> = ({ pokemon, page , isPowerOn}) => {
   const [description, setDescription] = useState<string>("");
 
   const heightInFeet = (pokemon.height / 3.048).toFixed(2);
@@ -67,6 +69,10 @@ const Stats: React.FC<StatsProps> = ({ pokemon, page }) => {
         .catch(() => setDescription("Error al cargar la descripción."));
     }
   }, [page, pokemon.name]);
+
+   if (!isPowerOn) {
+    return <div id="stats" className="off"></div>;
+  }
 
   return (
     <div id="stats">

@@ -1,6 +1,6 @@
 import React from "react";
 import Screen from "../Screen/Screen";
-import { Pokemon } from "../../utils/pokeApiService";
+import type { Pokemon } from "../../utils/pokeApiService";
 import "./PokedexUI.scss";
 import Stats from "../Stats/Stats";
 import SearchInput from "../SearchInput/SearchInput";
@@ -19,7 +19,9 @@ interface PokedexUIProps {
   isAnimated: boolean;
   toggleAnimation: () => void;
   triggerReadingAnimation: () => void;
-  isReading : boolean;
+  isReading: boolean;
+  isPowerOn: boolean;
+  togglePower: () => void;
 }
 
 const PokedexUI: React.FC<PokedexUIProps> = ({
@@ -36,9 +38,10 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
   isAnimated,
   toggleAnimation,
   triggerReadingAnimation,
-  isReading
+  isReading,
+  isPowerOn,
+  togglePower,
 }) => {
-  
   const goToNext = () => {
     if (!showFrontSprite) {
       toggleSprite();
@@ -86,22 +89,30 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
             id="buttonGlass"
             role="button"
             tabIndex={0}
-            className={isReading ? "reading" : ""}
+            className={`${isReading ? "reading" : ""} ${
+              !isPowerOn ? "off" : ""
+            }`}
           >
             <div id="barbutton1"></div>
             <div id="reflect"></div>
           </div>
           <div
             id="miniButtonGlass1"
-            className={page === "basic" ? "active" : ""}
+            className={`${page === "basic" ? "active" : ""} ${
+              !isPowerOn ? "off" : ""
+            }`}
           />
           <div
             id="miniButtonGlass2"
-            className={page === "stats" ? "active" : ""}
+            className={`${page === "stats" ? "active" : ""} ${
+              !isPowerOn ? "off" : ""
+            }`}
           />
           <div
             id="miniButtonGlass3"
-            className={page === "description" ? "active" : ""}
+            className={`${page === "description" ? "active" : ""} ${
+              !isPowerOn ? "off" : ""
+            }`}
           />
         </div>
 
@@ -120,57 +131,79 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
           showFrontSprite={showFrontSprite}
           isAnimated={isAnimated}
           toggleAnimation={toggleAnimation}
+          isPowerOn={isPowerOn}
+          togglePower={togglePower}
         />
 
         <div id="cross">
           <div
             id="leftcross"
-            onClick={() => togglePage("prev")}
-            role="button"
-            tabIndex={0}
-            aria-label="Toggle info page"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") togglePage();
+            onClick={() => {
+              if (isPowerOn) togglePage("prev");
             }}
+            role="button"
+            tabIndex={isPowerOn ? 0 : -1}
+            aria-label="Toggle info page"
+            aria-disabled={!isPowerOn}
+            onKeyDown={(e) => {
+              if (isPowerOn && e.key === "Enter") togglePage("prev");
+            }}
+            className={!isPowerOn ? "disabled" : ""}
           >
             <div id="leftT"></div>
           </div>
+
           <div
             id="topcross"
-            onClick={goToNext}
-            role="button"
-            tabIndex={0}
-            aria-label="Next Pokémon"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") goToNext();
+            onClick={() => {
+              if (isPowerOn) goToNext();
             }}
+            role="button"
+            tabIndex={isPowerOn ? 0 : -1}
+            aria-label="Next Pokémon"
+            aria-disabled={!isPowerOn}
+            onKeyDown={(e) => {
+              if (isPowerOn && e.key === "Enter") goToNext();
+            }}
+            className={!isPowerOn ? "disabled" : ""}
           >
             <div id="upT"></div>
           </div>
+
           <div
             id="rightcross"
-            onClick={() => togglePage("next")}
-            role="button"
-            tabIndex={0}
-            aria-label="Toggle info page"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") togglePage();
+            onClick={() => {
+              if (isPowerOn) togglePage("next");
             }}
+            role="button"
+            tabIndex={isPowerOn ? 0 : -1}
+            aria-label="Toggle info page"
+            aria-disabled={!isPowerOn}
+            onKeyDown={(e) => {
+              if (isPowerOn && e.key === "Enter") togglePage("next");
+            }}
+            className={!isPowerOn ? "disabled" : ""}
           >
             <div id="rightT"></div>
           </div>
+
           <div id="midcross">
             <div id="midCircle"></div>
           </div>
+
           <div
             id="botcross"
-            onClick={goToPrevious}
-            role="button"
-            tabIndex={0}
-            aria-label="Previous Pokémon"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") goToPrevious();
+            onClick={() => {
+              if (isPowerOn) goToPrevious();
             }}
+            role="button"
+            tabIndex={isPowerOn ? 0 : -1}
+            aria-label="Previous Pokémon"
+            aria-disabled={!isPowerOn}
+            onKeyDown={(e) => {
+              if (isPowerOn && e.key === "Enter") goToPrevious();
+            }}
+            className={!isPowerOn ? "disabled" : ""}
           >
             <div id="downT"></div>
           </div>
@@ -178,8 +211,8 @@ const PokedexUI: React.FC<PokedexUIProps> = ({
       </div>
 
       <div id="right">
-        <Stats pokemon={pokemon} page={page} />
-        <SearchInput onPokemonChange={onPokemonChange} />
+        <Stats pokemon={pokemon} page={page} isPowerOn={isPowerOn} />
+        <SearchInput onPokemonChange={onPokemonChange} isPowerOn={isPowerOn} />
         <div id="bg_curve1_right"></div>
         <div id="bg_curve2_right"></div>
         <div id="curve1_right"></div>
