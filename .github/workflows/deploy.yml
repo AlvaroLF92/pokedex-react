@@ -1,4 +1,4 @@
-name: Deploy entrega-cloud to GitHub Pages
+name: Deploy pokedex-react to GitHub Pages
 
 on:
   push:
