@@ -89,7 +89,19 @@ const Screen: React.FC<ScreenProps> = ({
         )}
       </div>
 
-      <div id="buttonbottomPicture" onClick={togglePower}></div>
+      <div id="buttonbottomPicture" onClick={togglePower}>
+        {" "}
+      </div>
+      <span
+        style={{
+          fontSize: "1rem",
+          color: "black",
+          fontWeight: "bold",
+          marginLeft: "0.5rem",
+        }}
+      >
+        ON / OFF
+      </span>
 
       <div id="speakers">
         <div className="sp"></div>

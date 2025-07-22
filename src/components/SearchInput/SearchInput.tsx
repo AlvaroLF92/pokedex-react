@@ -42,7 +42,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onPokemonChange, isPowerOn })
         onClick={handleSearch}
         disabled={!isPowerOn} 
       >
-        Search
+        Buscar
       </button>
     </div>
   );
