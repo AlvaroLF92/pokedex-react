@@ -94,7 +94,7 @@ const Screen: React.FC<ScreenProps> = ({
       </div>
       <span
         style={{
-          fontSize: "1rem",
+          fontSize: "0.8rem",
           color: "black",
           fontWeight: "bold",
           marginLeft: "0.5rem",
